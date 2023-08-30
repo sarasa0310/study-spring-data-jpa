@@ -13,7 +13,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public interface MemberRepository extends JpaRepository<Member, Long> {
+public interface MemberRepository extends JpaRepository<Member, Long>, MemberRepositoryCustom {
 
     // 메서드 이름으로 쿼리 생성 -> 편리하지만, 파라미터가 많아지면 메서드 이름이 너무 길어질 수 있음 -> 그럴 땐 @Query 사용
     List<Member> findByUsernameAndAgeGreaterThan(String username, int age);
