@@ -41,4 +41,22 @@ class MemberTest {
         assertThat(steve.getTeam()).isEqualTo(tim.getTeam());
     }
 
+    @Test
+    void jpaEventBaseEntity() throws Exception {
+        Member jimmy = new Member("jimmy", 20);
+        em.persist(jimmy); // @PrePersist 호출
+
+        Thread.sleep(1000);
+        jimmy.setUsername("kim");
+
+        em.flush(); // @PreUpdate 호출
+        em.clear();
+
+        Member found = em.find(Member.class, jimmy.getId());
+        System.out.println("found.getCreatedDate() = " + found.getCreatedDate());
+        System.out.println("found.getLastModifiedDate() = " + found.getLastModifiedDate());
+        System.out.println("found.getCreatedBy() = " + found.getCreatedBy());
+        System.out.println("found.getLastModifiedBy() = " + found.getLastModifiedBy());
+    }
+
 }
